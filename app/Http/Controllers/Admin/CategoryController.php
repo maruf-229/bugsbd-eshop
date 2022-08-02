@@ -18,26 +18,26 @@ class CategoryController extends Controller
     }
     public function categoryStatus(Request $request){
         if($request->mode == 'true'){
-            $status = DB::table('categorys')->where('id',$request->id)->update(['active'=>1]);
+            $status = DB::table('categories')->where('id',$request->id)->update(['active'=>1]);
         }else{
-            $status = DB::table('categorys')->where('id',$request->id)->update(['active'=>0]);
+            $status = DB::table('categories')->where('id',$request->id)->update(['active'=>0]);
         }
         if ($status) {
             $notification = array(
-                'message' => 'Branch Delete Successfully.',
+                'message' => 'categories Delete Successfully.',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         }
         else{
             $notification = array(
-                'message' => 'Status Change Unuccessfully',
+                'message' => 'categories Change Unuccessfully',
                 'alert-type' => 'danger'
             );
             return redirect()->back()->with($notification);
         } 
         
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.

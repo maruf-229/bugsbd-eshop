@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-Category Manage
+Slider Manage
 @endsection
 @section('nev-search')
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -25,12 +25,12 @@ Category Manage
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Categorys List </h1>
+            <h1>Slider List </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-              <li class="breadcrumb-item active">Category List</li>
+              <li class="breadcrumb-item active">Slider List</li>
             </ol>
           </div>
         </div>
@@ -46,10 +46,10 @@ Category Manage
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Total  Categorys: {{\App\Models\Category::count()}} </h3>
+                <h3 class="card-title">Total  Slider: {{\App\Models\Slider::count()}} </h3>
                 <div class="pull-right" style="text-align:right;">
                     <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#branch-info">
-                    Add Category
+                    Add Slider
                     </button>
                 </div>
                 
@@ -60,17 +60,25 @@ Category Manage
                   <thead>
                   <tr>
                     <th>S.N.</th>
-                    <th>Category name </th>
+                    <th>Slider Image </th>
+                    <th>Title First </th>
+                    <th>Title Second </th>
+                    <th>Title Third </th>
+                    <th>Sub Title </th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  @foreach($categorys as $item)
+                  @foreach($sliders as $item)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$item->category_name}}</td>
+                        <td><img style=" height:50px; width:50px; border-radius: 25px;" src="{{asset($item->image)}}"></td>
+                        <td>{{$item->title_first}}</td>
+                        <td>{{$item->title_second}}</td>
+                        <td>{{$item->title_third}}</td>
+                        <td>{{$item->sub_title}}</td>
                         <td>
                             <input type="checkbox" name="toogle" value="{{$item->id}}" data-toggle="switchbutton" {{$item->active == 1 ? 'checked' : ''}}  data-onlabel="Active" data-offlabel="Inactive" data-onstyle="success" data-size="sm" data-offstyle="danger">
                         </td>
@@ -86,11 +94,7 @@ Category Manage
                               </i>
                               Edit
                             </a>
-
-                            
-
-                           
-                            <form class="float-left px-2" action="{{ route('category.destroy',$item->id) }}" method="POST">
+                            <form class="float-left px-2" action="{{ route('slider.destroy',$item->id) }}" method="POST">
                                 @csrf 
                                 @method('delete')
                                 <a type="button" data-type="confirm" class="dltBtn btn-sm btn-danger js-sweetalert" title="Delete">
@@ -108,41 +112,82 @@ Category Manage
                                 <div class="modal-dialog">
                                 <div class="modal-content bg-info">
                                     <div class="modal-header">
-                                    <h4 class="modal-title">Update Category </h4>
+                                    <h4 class="modal-title">Update Slider </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
-                                    <form class="add-contact-form" method="post" action="{{ route('category.update',$item->id) }}" enctype="multipart/form-data">
+                                    <form class="add-contact-form" method="post" action="{{ route('slider.update',$item->id) }}" enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
                                         <!-- <input type="hidden" name="id" value="{{$item->id}}" > -->
                                         <div class="modal-body">
                                             
+                                        
+
                                         <div class="form-group">
-                                            <label>Category name :</label>
-                                            <input type="text" class="form-control @error('category_name') is-invalid @enderror" placeholder="Enter Category Name" name="category_name" value="{{$item->category_name}}" />
-                                            @error('category_name')
+                                            <label>First Title :</label>
+                                            <input type="text" class="form-control @error('title_first') is-invalid @enderror" placeholder="Enter First Title" name="title_first" value="{{$item->title_first}}" />
+                                            @error('title_first')
                                               <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                               </span>
                                             @enderror
-                                            
                                         </div>
+                                        <div class="form-group">
+                                            <label>Second Title :</label>
+                                            <input type="text" class="form-control @error('title_second') is-invalid @enderror" placeholder="Enter Second Title" name="title_second" value="{{$item->title_second}}" />
+                                            @error('title_second')
+                                              <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Third Title :</label>
+                                            <input type="text" class="form-control @error('title_third') is-invalid @enderror" placeholder="Enter Thied Title" name="title_third" value="{{$item->title_third}}" />
+                                            @error('title_third')
+                                              <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Sub Title :</label>
+                                            <input type="text" class="form-control @error('sub_title') is-invalid @enderror" placeholder="Enter Sub Title" name="sub_title" value="{{$item->sub_title}}" />
+                                            @error('sub_title')
+                                              <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                        </div>
+
                                        
                                         <div class="form-group">
-                                          <label>Category status :</label>
+                                          <label>Slider status :</label>
                                           <select class="form-control show-tick" name="active">
                                                 <option selected disabled>--Select Status--</option>
                                                 <option value="1" {{$item->active == 1 ? "selected" : "" }}>Active</option>
                                                 <option value="0" {{$item->active == 0 ? "selected" : "" }}>Inactive</option>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Upload Image</label>
+                                            <input type="file" class="form-control rounded" name="image" onchange="readURLImage(this);" >
+                                            </br>
+                                            @if($item->image !=null)
+                                            <img style=" height:150px; width:150px; border-radius: 25px;" src="{{asset($item->image)}}" id="image">
+                                            @else
+                                            <img style=" height:150px; width:150px; border-radius: 25px;" src="{{asset('1.jpg')}}" id="image">
+                                            @endif
+                                        </div>
 
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-outline-light">Update Category</button>
+                                        <button type="submit" class="btn btn-outline-light">Update Slider</button>
                                         </div>
                                     </form>  
                                 </div>
@@ -158,12 +203,12 @@ Category Manage
                            <!-- branch Show model start --> 
                         <div class="modal fade" id="show_{{$item->id}}">
                             @php
-                                $category = \App\Models\Category::where('id',$item->id)->first();
+                                $slider = \App\Models\Slider::where('id',$item->id)->first();
                             @endphp
                             <div class="modal-dialog">
                             <div class="modal-content bg-info">
                                 <div class="modal-header">
-                                <h4 class="modal-title">View Category </h4>
+                                <h4 class="modal-title">View Slider </h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -172,15 +217,30 @@ Category Manage
                                    
                                     <!-- <input type="hidden" name="id" value="{{$item->id}}" > -->
                                     <div class="modal-body">
-
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <strong>Category Name :</strong>
-                                            <p>{{ $category->category_name }}</p>
+                                            <strong>Title first :</strong>
+                                            <p>{{ $slider->title_first }}</p>
                                         </div>
                                         <div class="col-md-6">
+                                            <strong>Title Second :</strong>
+                                            <p>{{ $slider->title_second }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <strong>Title Third :</strong>
+                                            <p>{{ $slider->title_third }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong>Sub Title :</strong>
+                                            <p>{{ $slider->sub_title }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <strong>Status  :</strong>
-                                            @if($category->active==1)
+                                            @if($slider->active==1)
                                             <p>
                                               <span class="right badge badge-success">Active</span>
                                             </p>
@@ -190,9 +250,14 @@ Category Manage
                                             </p>
                                             @endif
                                         </div>
+                                        <div class="col-md-6">
+                                            @if($slider->image !=null)
+                                            <img style=" height:150px; width:150px; border-radius: 25px;" src="{{asset($item->image)}}" id="image">
+                                            @else
+                                            <img style=" height:150px; width:150px; border-radius: 25px;" src="{{asset('1.jpg')}}" id="image">
+                                            @endif
+                                        </div>
                                     </div>
-                                 
-                                    
                                         
                     
                                     <div class="modal-footer justify-content-between">
@@ -230,27 +295,56 @@ Category Manage
         <div class="modal-dialog">
           <div class="modal-content bg-info">
             <div class="modal-header">
-              <h4 class="modal-title">Create Category  </h4>
+              <h4 class="modal-title">Create Slider  </h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form class="add-contact-form" method="post" action="{{ route('category.store') }}" enctype="multipart/form-data">
+            <form class="add-contact-form" method="post" action="{{ route('slider.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     
                     <div class="form-group">
-                        <label>Category name :</label>
-                        <input type="text" class="form-control @error('category_name') is-invalid @enderror" placeholder="Enter Category Name" name="category_name" value="{{old('category_name')}}" />
-                        @error('category_name')
+                        <label>First Title :</label>
+                        <input type="text" class="form-control @error('title_first') is-invalid @enderror" placeholder="Enter First Title" name="title_first" value="{{old('title_first')}}" />
+                        @error('title_first')
                           <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                           </span>
                         @enderror
                     </div>
-                    
                     <div class="form-group">
-                      <label>Category status :</label>
+                        <label>Second Title :</label>
+                        <input type="text" class="form-control @error('title_second') is-invalid @enderror" placeholder="Enter Second Title" name="title_second" value="{{old('title_second')}}" />
+                        @error('title_second')
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Third Title :</label>
+                        <input type="text" class="form-control @error('title_third') is-invalid @enderror" placeholder="Enter Thied Title" name="title_third" value="{{old('title_third')}}" />
+                        @error('title_third')
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sub Title :</label>
+                        <input type="text" class="form-control @error('sub_title') is-invalid @enderror" placeholder="Enter Sub Title" name="sub_title" value="{{old('sub_title')}}" />
+                        @error('sub_title')
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                      <label>Slider status :</label>
                       <select class="form-control show-tick" name="active">
                       
                           <option selected disabled>--Select Status--</option>
@@ -258,12 +352,21 @@ Category Manage
                           <option value="0" {{old("active") == 0 ? "selected" : "" }}>Inactive</option>
                       </select>
                     </div>
+
+                    <div class="form-group">
+                      <label>Upload Image</label>
+                        <input type="file" class="form-control rounded" name="image" onchange="readURLImage(this);">
+                      </br>
+                      <img style="height:150px; width:150px; border-radius: 25px;" src="{{asset('1.jpg')}}" id="image">
+                   </div>
+                    
+                    
                     
                 
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-outline-light">Save Category</button>
+                <button type="submit" class="btn btn-outline-light">Save Slider</button>
                 </div>
             </form>  
           </div>
@@ -323,7 +426,7 @@ $('input[name=toogle]').change(function(){
    var id = $(this).val();
    //alert(id);
    $.ajax({
-       url:"{{ route('category.status')}}",
+       url:"{{ route('slider.status')}}",
        type:"POST",
        data:{
            _token:'{{csrf_token()}}',
@@ -336,6 +439,35 @@ $('input[name=toogle]').change(function(){
        }
    })
 });
+</script>
+
+<script type="text/javascript">
+	function readURLImage(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#image')
+                  .attr('src', e.target.result)
+                  .width(150)
+                  .height(150);
+          };
+          reader.readAsDataURL(input.files[0]);
+      }
+   }
+
+
+   function readURLImageAdd(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#image1')
+                  .attr('src', e.target.result)
+                  .width(150)
+                  .height(150);
+          };
+          reader.readAsDataURL(input.files[0]);
+      }
+   }
 </script>
 
 

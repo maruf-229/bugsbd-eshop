@@ -56,6 +56,53 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item {{Route::is('slider.index')  ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Slider Manage
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('slider.index')}}" class="nav-link {{ Route::is('slider.index') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Slider</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{Route::is('product.index')  ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Product Manage
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('product.index')}}" class="nav-link {{ Route::is('product.index') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Slider</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{Route::is('slider.index')  ? 'acrive' : ''}}">
+            <a href="{{ route('setting.index') }}" class="nav-link ">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Setting Manage
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+           
+          </li>
          
           
          
