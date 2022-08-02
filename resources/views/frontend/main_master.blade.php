@@ -49,8 +49,8 @@
     <!-- Modal Popup Bid -->
             @include('frontend.body.bid_modal')
 </div>
-<!-- /#wrapper -->
-
+{{--<!-- /#wrapper -->--}}
+{{----}}
 <a id="scroll-top"></a>
 
 <!-- Javascript -->
