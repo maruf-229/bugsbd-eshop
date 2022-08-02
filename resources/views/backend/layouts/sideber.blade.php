@@ -87,7 +87,7 @@
               <li class="nav-item">
                 <a href="{{route('product.index')}}" class="nav-link {{ Route::is('product.index') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Product Slider</p>
+                  <p>Manage Product</p>
                 </a>
               </li>
             </ul>

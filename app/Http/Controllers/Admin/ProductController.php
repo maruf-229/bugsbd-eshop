@@ -14,8 +14,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $sliders=Slider::orderBy('id','DESC')->get(); 
-        return view('backend.slider.manage',compact('sliders'));
+        $products=DB::table('products')
+        ->join('categories','products.cat_id','categories.id')
+        ->select('products.*','categories.category_name')
+        ->get();
+        return view('backend.product.manage',compact('products'));
     }
 
     public function sliderStatus(Request $request){
@@ -61,37 +64,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+      
+
         $image=$request->file('image');
         if($image){
             $image_upload= hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(150,150)->save('Slider/Image/'.$image_upload);
             $imgUrl ='Slider/Image/'.$image_upload;
-            $Slider = new Slider(); 
-            $Slider->image = $imgUrl; 
-            $Slider->title_first = $request->title_first;
-            $Slider->title_second = $request->title_second;
-            $Slider->title_third = $request->title_third;
-            $Slider->sub_title = $request->sub_title;
-            $Slider->active = $request->active;
-            $done = $Slider->save();
+            $Product = new Product(); 
+            $Product->image = $imgUrl; 
+            $Product->title = $request->title;
+            $Product->sammary = $request->sammary;
+            $Product->description = $request->description;
+            $Product->cat_id = $request->cat_id;
+            $Product->bid_price = $request->bid_price;
+            $Product->active = $request->active;
+            $done = $Product->save();
         }else{
-            $Slider = new Slider();  
-            $Slider->title_first = $request->title_first;
-            $Slider->title_second = $request->title_second;
-            $Slider->title_third = $request->title_third;
-            $Slider->sub_title = $request->sub_title;
-            $Slider->active = $request->active;
-            $done = $Slider->save(); 
+            $Product = new Product();
+            $Product->title = $request->title;
+            $Product->sammary = $request->sammary;
+            $Product->description = $request->description;
+            $Product->cat_id = $request->cat_id;
+            $Product->bid_price = $request->bid_price;
+            $Product->active = $request->active;
+            $done = $Product->save();
         }
         if ($done) {
             $notification = array(
-                'message' => 'Slider Added Successfully.',
+                'message' => 'Product Added Successfully.',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
         }else{
             $notification = array(
-                'message' => 'Slider Added Unuccessfully',
+                'message' => 'Product Added Unuccessfully',
                 'alert-type' => 'danger'
             );
             return redirect()->back()->with($notification);

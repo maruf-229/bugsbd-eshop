@@ -11,17 +11,18 @@ class Product extends Model
 
     protected $fillable = [
         'title',
-        'meta_description',
-        'meta_keywords',
-        'logo',
-        'favicon',
-        'address',
-        'email',
-        'phone',
-        'footer',
-        'facebook_url',
-        'twitter_url',
-        'linkedin_url',
-        'youtube_url',
+        'slug',
+        'sammary',
+        'description',
+        'additional_info',
+        'strock',
+        'cat_id',
+        'image',
+        'bid_price',
+        'best_bid_price',
+        'user_id',
+        'active',
     ];
+
+   
 }
