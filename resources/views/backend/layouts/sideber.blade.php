@@ -9,7 +9,7 @@
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
       <img src="{{asset('backend')}}/dist/img/logo.png" alt="HRM" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">BugsBd</span>
-    </a> 
+    </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-   
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -75,7 +75,7 @@
             </ul>
           </li>
 
-          <li class="nav-item {{Route::is('product.index')  ? 'menu-open' : ''}}">
+          <li class="nav-item {{Route::is('item.index')  ? 'menu-open' : ''}}">
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -85,7 +85,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('product.index')}}" class="nav-link {{ Route::is('product.index') ? 'active' : ''}}">
+                <a href="{{route('item.index')}}" class="nav-link {{ Route::is('item.index') ? 'active' : ''}}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage Product</p>
                 </a>
@@ -101,11 +101,11 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-           
+
           </li>
-         
-          
-         
+
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

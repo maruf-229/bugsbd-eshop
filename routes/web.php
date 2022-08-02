@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('/item-details/{id}', [IndexController::class, 'itemDetails'])->name('item_details');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

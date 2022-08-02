@@ -1,59 +1,64 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+@extends('frontend.main_master')
+@section('section')
+<!-- title page -->
+<section class="flat-title-page inner">
+    <div class="overlay"></div>
+    <div class="themesflat-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-title-heading mg-bt-12">
+                    <h1 class="heading text-center">Signup</h1>
+                </div>
+                <div class="breadcrumbs style2">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Pages</a></li>
+                        <li>Signup</li>
+                    </ul>
+                </div>
             </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+<section class="tf-login tf-section">
+    <div class="themesflat-container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="tf-title-heading ct style-1">
+                    Sigup To NFTs
+                </h2>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <div class="flat-form box-login-email">
+                    <div class="box-title-login">
+                        <h5>Register with email</h5>
+                    </div>
+
+                    <div class="form-inner">
+                        <form method="POST" action="{{ route('register') }}" id="contactform">
+                            @csrf
+
+                            <input id="name" name="name" tabindex="1" value="" aria-required="true" required type="text" placeholder="Your Full Name">
+                            <input id="email" name="email" tabindex="2"  value="" aria-required="true" type="email" placeholder="Your Email Address" required>
+                            <input id="password" name="password" tabindex="3"  value="" aria-required="true" type="password" placeholder="Set Your Password" required>
+                            <input id="password_confirmation" name="password_confirmation" tabindex="3"  value="" aria-required="true" type="password" placeholder="Confirm Your Password" required>
+                            <div class="row-form style-1">
+                                <label>Remember me
+                                    <input type="checkbox">
+                                    <span class="btn-checkbox"></span>
+                                </label>
+                                <a href="#" class="forgot-pass">Forgot Password ?</a>
+                            </div>
+
+                            <button class="submit">Register</button>
+                        </form>
+                    </div>
+
+                </div>
+
             </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@endsection

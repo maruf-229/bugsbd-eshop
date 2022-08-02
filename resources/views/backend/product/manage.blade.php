@@ -42,17 +42,17 @@ Product Manage
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-           
+
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Total  Slider: {{\App\Models\Product::count()}} </h3>
+                <h3 class="card-title">Total  Product: {{\App\Models\Product::count()}} </h3>
                 <div class="pull-right" style="text-align:right;">
                     <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#branch-info">
                     Add Product
                     </button>
                 </div>
-                
+
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -96,8 +96,8 @@ Product Manage
                               </i>
                               Edit
                             </a>
-                            <form class="float-left px-2" action="{{ route('slider.destroy',$item->id) }}" method="POST">
-                                @csrf 
+                            <form class="float-left px-2" action="{{ route('item.destroy',$item->id) }}" method="POST">
+                                @csrf
                                 @method('delete')
                                 <a type="button" data-type="confirm" class="dltBtn btn-sm btn-danger js-sweetalert" title="Delete">
                                   <i class="fas fa-trash">
@@ -106,10 +106,10 @@ Product Manage
                                 </a>
 
                             </form>
-                            
+
                         </td>
                     </tr>
-                        <!-- branch Edit model start --> 
+                        <!-- branch Edit model start -->
                         <div class="modal fade" id="edit_{{$item->id}}">
                                 <div class="modal-dialog">
                                 <div class="modal-content bg-info">
@@ -119,13 +119,13 @@ Product Manage
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
-                                    <form class="add-contact-form" method="post" action="{{ route('product.update',$item->id) }}" enctype="multipart/form-data">
+                                    <form class="add-contact-form" method="post" action="{{ route('item.update',$item->id) }}" enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
                                         <div class="modal-body">
-                                          
+
                                         @php
-                                        $categorys=\App\Models\Category::orderBy('id','DESC')->get(); 
+                                        $categorys=\App\Models\Category::orderBy('id','DESC')->get();
                                         @endphp
                                           <div class="form-group">
                                               <label>Category :</label>
@@ -143,7 +143,7 @@ Product Manage
 
                                           <div class="form-group">
                                               <label> Title :</label>
-                                              <input type="text" class="form-control @error('title') is-invalid @enderror" placeholder="Enter Title" name="title" value="{{old('title')}}" />
+                                              <input type="text" class="form-control @error('title') is-invalid @enderror" placeholder="Enter Title" name="title" value="{{ $item->title }}" />
                                               @error('title')
                                                 <span class="invalid-feedback" role="alert">
                                                   <strong>{{ $message }}</strong>
@@ -152,7 +152,7 @@ Product Manage
                                           </div>
                                           <div class="form-group">
                                               <label>sammary :</label>
-                                              <input type="text" class="form-control @error('sammary') is-invalid @enderror" placeholder="Enter sammary" name="sammary" value="{{old('sammary')}}" />
+                                              <input type="text" class="form-control @error('sammary') is-invalid @enderror" placeholder="Enter sammary" name="sammary" value="{{$item->sammary}}" />
                                               @error('sammary')
                                                 <span class="invalid-feedback" role="alert">
                                                   <strong>{{ $message }}</strong>
@@ -161,7 +161,7 @@ Product Manage
                                           </div>
                                           <div class="form-group">
                                               <label>description :</label>
-                                              <input type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Enter description" name="description" value="{{old('description')}}" />
+                                              <input type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Enter description" name="description" value="{{$item->description}}" />
                                               @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                   <strong>{{ $message }}</strong>
@@ -170,7 +170,7 @@ Product Manage
                                           </div>
                                           <div class="form-group">
                                               <label>Bid price :</label>
-                                              <input type="text" class="form-control @error('bid_price') is-invalid @enderror" placeholder="Enter Price" name="bid_price" value="{{old('bid_price')}}" />
+                                              <input type="text" class="form-control @error('bid_price') is-invalid @enderror" placeholder="Enter Price" name="bid_price" value="{{$item->bid_price}}" />
                                               @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                   <strong>{{ $message }}</strong>
@@ -178,7 +178,7 @@ Product Manage
                                               @enderror
                                           </div>
 
-                                       
+
                                         <div class="form-group">
                                           <label>Product status :</label>
                                           <select class="form-control show-tick" name="active">
@@ -203,55 +203,54 @@ Product Manage
                                         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-outline-light">Update Product</button>
                                         </div>
-                                    </form>  
+                                    </form>
                                 </div>
                                 <!-- /.modal-content -->
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
                             <!-- /.modal -->
-                            <!-- branch Edit model end -->   
+                            <!-- branch Edit model end -->
 
 
 
-                           <!-- branch Show model start --> 
+                           <!-- branch Show model start -->
                         <div class="modal fade" id="show_{{$item->id}}">
                             @php
-                    
                                 $product=DB::table('products')
-        ->join('categories','products.cat_id','categories.id')
-        ->select('products.*','categories.category_name')
-        ->where('products.id',$item->id)->first();
+                                  ->join('categories','products.cat_id','categories.id')
+                                  ->select('products.*','categories.category_name')
+                                  ->where('products.id',$item->id)->first();
                             @endphp
                             <div class="modal-dialog">
                             <div class="modal-content bg-info">
                                 <div class="modal-header">
-                                <h4 class="modal-title">View Slider </h4>
+                                <h4 class="modal-title">View Product </h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
                                 <form class="add-contact-form" method="post" action="#" enctype="multipart/form-data">
-                                   
+
                                     <!-- <input type="hidden" name="id" value="{{$item->id}}" > -->
                                     <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <strong>Title first :</strong>
+                                            <strong>Title :</strong>
                                             <p>{{ $product->title }}</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <strong>Title Second :</strong>
+                                            <strong>Sammary :</strong>
                                             <p>{{ $product->sammary }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <strong>Title Third :</strong>
+                                            <strong>description :</strong>
                                             <p>{{ $product->description }}</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <strong>Sub Title :</strong>
+                                            <strong>Bid price :</strong>
                                             <p>{{ $product->bid_price }}</p>
                                         </div>
                                     </div>
@@ -276,22 +275,22 @@ Product Manage
                                             @endif
                                         </div>
                                     </div>
-                                        
-                    
+
+
                                     <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-outline-light pull-right" data-dismiss="modal">Close</button>
                                     </div>
-                                </form>  
+                                </form>
                           </div>
                           <!-- /.modal-content -->
                           </div>
                           <!-- /.modal-dialog -->
                       </div>
                       <!-- /.modal -->
-                      <!-- Department Show  model end -->    
-                  @endforeach   
+                      <!-- Department Show  model end -->
+                  @endforeach
                   </tbody>
-                
+
                 </table>
               </div>
               <!-- /.card-body -->
@@ -308,7 +307,7 @@ Product Manage
   </div>
   <!-- /.content-wrapper -->
 
-<!-- branch add model start --> 
+<!-- branch add model start -->
   <div class="modal fade" id="branch-info">
         <div class="modal-dialog">
           <div class="modal-content bg-info">
@@ -318,11 +317,11 @@ Product Manage
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form class="add-contact-form" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
+            <form class="add-contact-form" method="post" action="{{ route('item.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                   @php
-                  $categorys=\App\Models\Category::orderBy('id','DESC')->get(); 
+                  $categorys=\App\Models\Category::orderBy('id','DESC')->get();
                   @endphp
                     <div class="form-group">
                         <label>Category :</label>
@@ -375,11 +374,11 @@ Product Manage
                         @enderror
                     </div>
 
-                    
+
                     <div class="form-group">
                       <label>Product status :</label>
                       <select class="form-control show-tick" name="active">
-                      
+
                           <option selected disabled>--Select Status--</option>
                           <option value="1" {{old("active") == 1 ? "selected" : "" }}>Active</option>
                           <option value="0" {{old("active") == 0 ? "selected" : "" }}>Inactive</option>
@@ -392,21 +391,21 @@ Product Manage
                       </br>
                       <img style="height:150px; width:150px; border-radius: 25px;" src="{{asset('1.jpg')}}" id="image">
                    </div>
-                    
-                    
+
+
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-outline-light">Save Product</button>
                 </div>
-            </form>  
+            </form>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-      <!-- branch add model end --> 
+      <!-- branch add model end -->
 
 
 
@@ -422,7 +421,7 @@ Product Manage
     }
     });
     $('.dltBtn').click(function(e){
-       
+
         var form = $(this).closest('form');
         var dataId = $(this).data('id');
         e.preventDefault();
@@ -444,8 +443,8 @@ Product Manage
             )
         }
         })
-        
-        
+
+
 
     });
 
@@ -457,7 +456,7 @@ $('input[name=toogle]').change(function(){
    var id = $(this).val();
    //alert(id);
    $.ajax({
-       url:"{{ route('slider.status')}}",
+       url:"{{ route('item.status')}}",
        type:"POST",
        data:{
            _token:'{{csrf_token()}}',

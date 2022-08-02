@@ -74,8 +74,8 @@
                                         <li class="menu-item"><a href="profile.html">Edit Profile</a></li>
 
                                         <li class="menu-item"><a href="ranking.html">Ranking</a></li>
-                                        <li class="menu-item"><a href="login.html">Login</a></li>
-                                        <li class="menu-item"><a href="signup.html">Sign Up</a></li>
+                                        <li class="menu-item"><a href="{{ route('login') }}">Login</a></li>
+                                        <li class="menu-item"><a href="{{ route('register') }}">Sign Up</a></li>
                                         <li class="menu-item"><a href="no-result.html">No Result</a></li>
                                         <li class="menu-item"><a href="faq.html">FAQ</a></li>
                                     </ul>
